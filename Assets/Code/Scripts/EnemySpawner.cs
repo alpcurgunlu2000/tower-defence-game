@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
+    /*
     [Header("References")]
     [SerializeField] private GameObject[] enemyPreFabs;
     [Header("Attributes")]
@@ -65,27 +66,38 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Debug.Log("Spawn Enemy");
+        if (enemyPreFabs.Length == 0 || enemyPreFabs[0] == null)
+        {
+            Debug.LogError("Kein Enemy Prefab zugewiesen!");
+            return;
+        }
+
         GameObject prefabToSpawn = enemyPreFabs[0];
         Instantiate(prefabToSpawn, LevelManager.main.startPoint.position, Quaternion.identity);
     }
 
     private IEnumerator StartWave()
     {
+        Debug.Log("Starte neue Welle in " + timeBetweenWaves + " Sekunden..."); // For Debugging
         yield return new WaitForSeconds(timeBetweenWaves);
-        isSpawning = true;
+        isSpawning = true; 
         enemiesLeftToSpawn = EnemiesPerWave();
+        Debug.Log("Welle gestartet! Gegner zu spawnen: " + enemiesLeftToSpawn); // For Debugging
     }
+
 
     private void EndWave()
     {
         isSpawning = false;
         timeSinceLastSpawn = 0f;
+        currentWave++; // nächste Welle!
         StartCoroutine(StartWave());
     }
+
 
     private int EnemiesPerWave()
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
+    */
 }
