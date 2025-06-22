@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class EnemySpawner : MonoBehaviour
 {
-    /*
+      // Code with Compiling Error
     [Header("References")]
     [SerializeField] private GameObject[] enemyPreFabs;
     [Header("Attributes")]
@@ -23,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("EnemySpawner Start called.");
+        // Debug.Log("EnemySpawner Start called.");
         StartCoroutine(StartWave());
 
     }
@@ -37,10 +38,10 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!isSpawning)
         {
-            Debug.Log("Not spawning yet...");
+            // Debug.Log("Not spawning yet...");
             return;
         }
-        Debug.Log("Spawning is active. Enemies left: " + enemiesLeftToSpawn);
+        // Debug.Log("Spawning is active. Enemies left: " + enemiesLeftToSpawn); // This gets spammed to infinity with the current broken code
         timeSinceLastSpawn += Time.deltaTime; // It makes the Rounds harder by Spawning faster every Round
          if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
 
@@ -68,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (enemyPreFabs.Length == 0 || enemyPreFabs[0] == null)
         {
-            Debug.LogError("Kein Enemy Prefab zugewiesen!");
+            // Debug.LogError("Kein Enemy Prefab zugewiesen!");
             return;
         }
 
@@ -99,5 +100,5 @@ public class EnemySpawner : MonoBehaviour
     {
         return Mathf.RoundToInt(baseEnemies * Mathf.Pow(currentWave, difficultyScalingFactor));
     }
-    */
+    
 }

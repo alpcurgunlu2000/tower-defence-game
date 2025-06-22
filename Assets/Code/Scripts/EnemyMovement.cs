@@ -16,6 +16,11 @@ public class EnemyMovement : MonoBehaviour
         target = LevelManager.main.path[pathIndex];
     }
 
+    private void Awake() // Recommendation from ChatGPT. Should be deleted if it causes problems
+    {
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+    }
     private void Update()
     {
         if (Vector2.Distance(target.position, transform.position) <= 0.1f)
@@ -23,7 +28,8 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
             if (pathIndex == LevelManager.main.path.Length)
             {
-                // EnemySpawner.onEnemyDestroy.Invoke(); // It will call the function from EnemySpawner
+                /*//*/
+                EnemySpawner.onEnemyDestroy.Invoke(); // It will call the function from EnemySpawner
                 Destroy(gameObject); // Wenn Enemy reaches the End of the Path
                 return;
             }
@@ -37,7 +43,7 @@ public class EnemyMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Vector2 direction = (target.position - transform.position).normalized;
-        rb.velocity = direction * moveSpeed;
+        rb.linearVelocity = direction * moveSpeed; // linearVelocity before. ChatGPT recommended to change that
     }
 }
 
