@@ -1,6 +1,8 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
-public class Plot : MonoBehaviour
+public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
@@ -14,25 +16,25 @@ public class Plot : MonoBehaviour
         startColor = sr.color;
     }
 
-    private void OnMouseEnter() // Mouse enters PLOT
+    public void OnPointerEnter(PointerEventData eventData)
     {
         Debug.Log("Mouse enters " + name);
         sr.color = hoverColor; // Hover Color
     }
 
-    private void OnMouseExit() // Mouse leaves PLOT
+    public void OnPointerExit(PointerEventData eventData)
     {
         Debug.Log("Mouse leaves " + name);
         sr.color = startColor; // Hover Color
     }
 
-    private void OnMouseDown() // MOUSE clicks on PLOT
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (tower != null) return;
         Debug.Log("Build Tower here: " + name);
 
         GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-        Instantiate(tower, transform.position, Quaternion.identity);
+        Instantiate(towerToBuild, transform.position, Quaternion.identity);
         /*
         GameObject towerToBuild = BuildManager.main.GetSelectedTower();
         Instantiate(towerToBuild, transform.position, Quaternion.identity);
