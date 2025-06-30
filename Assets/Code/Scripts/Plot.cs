@@ -11,6 +11,9 @@ public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     private GameObject tower;
     private Color startColor;
 
+    [Header("Attributes")]
+    [SerializeField] private int towerCost = 20;
+
     private void Start()
     {
         startColor = sr.color;
@@ -33,16 +36,21 @@ public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
         if (tower != null) return;
         Debug.Log("Build Tower here: " + name);
 
-        GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-        Instantiate(towerToBuild, transform.position, Quaternion.identity);
-        /*
-        GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-        Instantiate(towerToBuild, transform.position, Quaternion.identity);
-        tower = towerToBuild;
-        */
-
+        // Check if player has enough coins
+        bool canBuild = FindObjectOfType<CoinManager>().SpendCoins(towerCost);
+        if (canBuild)
+        {
+            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+            Instantiate(towerToBuild, transform.position, Quaternion.identity);
+            /*
+            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+            Instantiate(towerToBuild, transform.position, Quaternion.identity);
+            tower = towerToBuild;
+            */
+        }
+        else
+        {
+            Debug.Log("Not enough coins to build tower!");
+        }
     }
-
-
-
 }
