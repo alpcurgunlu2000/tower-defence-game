@@ -28,9 +28,10 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
             if (pathIndex == LevelManager.main.path.Length)
             {
-                /*//*/
+                // Enemy reached the end - player loses health
+                HealthBar.main.EnemyReachedEnd();
                 EnemySpawner.onEnemyDestroy.Invoke(); // It will call the function from EnemySpawner
-                Destroy(gameObject); // Wenn Enemy reaches the End of the Path
+                Destroy(gameObject); // When Enemy reaches the End of the Path
                 return;
             }
             else
