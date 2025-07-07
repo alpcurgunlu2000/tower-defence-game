@@ -53,4 +53,27 @@ public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
             Debug.Log("Not enough coins to build tower!");
         }
     }
+
+    public void PutTower()
+    {
+        if (tower != null) return;
+        Debug.Log("Build Tower here: " + name);
+
+        // Check if player has enough coins
+        bool canBuild = FindObjectOfType<CoinManager>().SpendCoins(towerCost);
+        if (canBuild)
+        {
+            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+            Instantiate(towerToBuild, transform.position, Quaternion.identity);
+            /*
+            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+            Instantiate(towerToBuild, transform.position, Quaternion.identity);
+            tower = towerToBuild;
+            */
+        }
+        else
+        {
+            Debug.Log("Not enough coins to build tower!");
+        }
+    }
 }

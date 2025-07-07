@@ -1,0 +1,26 @@
+{
+    "commands": {
+        "game_commands": {
+            "parameter_names": [
+                "option"
+            ],
+            "options": [
+                "play",
+                "exit"
+            ]
+        },
+        "tower_commands":{
+            "parameter_names": [
+                "option",
+                "place"
+            ],
+            "options":[
+                "put"
+            ],
+            "places":[
+                "0 to 191",
+                "note: give it as integer"
+            ]
+        }
+    }
+}
