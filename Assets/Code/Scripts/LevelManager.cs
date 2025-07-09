@@ -5,10 +5,15 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager main;
-    public Transform startPoint;
-    public Transform[] path; // Enemy Path that the Enemy can take
 
+    [Header("Path References")]
+    public Transform startPoint;      // Where enemies spawn (I)
+    public Transform endPoint;        // Where enemies exit (O) - optional use
+    public Transform[] path;          // Full enemy path
+
+    [Header("Currency")]
     public int currency;
+
     private void Awake()
     {
         main = this;
@@ -24,11 +29,11 @@ public class LevelManager : MonoBehaviour
         currency += amount;
     }
 
-        public bool SpendCurrency(int amount)
+    public bool SpendCurrency(int amount)
     {
         if (amount <= currency)
         {
-            // BUY ITEM
+            currency -= amount;
             return true;
         }
         else
@@ -38,4 +43,11 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    // 🔥 New: sets the enemy path and start/end points from MazeSpawner
+    public void SetPath(Transform[] path, Transform start, Transform end)
+    {
+        this.path = path;
+        this.startPoint = start;
+        this.endPoint = end;
+    }
 }
