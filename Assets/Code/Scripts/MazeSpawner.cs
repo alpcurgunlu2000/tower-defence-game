@@ -29,7 +29,7 @@ public class MazeSpawner : MonoBehaviour
     private int rows;
     private int cols;
     private Vector3 offset;
-
+    private int plotIndex = 0;
     private Transform startPoint;
     private Transform endPoint;
     private List<Transform> pathPoints = new List<Transform>();
@@ -62,7 +62,7 @@ public class MazeSpawner : MonoBehaviour
 
         GeneratePlots();
         GeneratePath();
-        Debug.Log("MazeSpawner: Path generated, setting in LevelManager");
+
         LevelManager.main.SetPath(pathPoints.ToArray(), startPoint, endPoint);
     }
 
@@ -75,12 +75,17 @@ public class MazeSpawner : MonoBehaviour
             {
                 char c = row[x];
                 Vector3 position = GetWorldPosition(x, y);
+            if (c == 'X')
+            {
+                GameObject newPlot = Instantiate(plotPrefab, position, Quaternion.identity, parentContainer);
+                newPlot.name = $"Plot ({plotIndex})";
 
-                if (c == 'X')
-                {
-                    GameObject newPlot = Instantiate(plotPrefab, position, Quaternion.identity, parentContainer);
-                    newPlot.name = $"Plot ({x},{y})";
-                }
+                Plot plotScript = newPlot.GetComponent<Plot>();
+                if (plotScript != null)
+                    plotScript.SetIndex(plotIndex);
+
+                plotIndex++;
+            }
             }
         }
     }

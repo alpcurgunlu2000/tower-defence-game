@@ -32,3 +32,4 @@ TASKS:
 4) Task 4 - Record presentation
 - Record a small gameplay video that shows your implementation including the modality fusion and the modality fission.
 - The video must be smaller than 20MB to upload it to ISIS (you can recode the video via ffmpeg / windows movie editor or a similar program to make is smaller).
+

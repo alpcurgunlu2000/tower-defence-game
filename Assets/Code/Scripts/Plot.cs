@@ -7,12 +7,20 @@ public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
     [Header("References")]
     [SerializeField] private SpriteRenderer sr;
     [SerializeField] private Color hoverColor;
-
+[SerializeField] private PlotLabel plotLabel; // new reference
     private GameObject tower;
     private Color startColor;
 
     [Header("Attributes")]
     [SerializeField] private int towerCost = 20;
+
+  private int index;
+    public void SetIndex(int i)
+    {
+        index = i;
+        if (plotLabel != null)
+            plotLabel.SetLabel(index);
+    }
 
     private void Start()
     {
