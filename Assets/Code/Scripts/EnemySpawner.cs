@@ -27,7 +27,7 @@ public class EnemySpawner : MonoBehaviour
         while (LevelManager.main.startPoint == null)
             yield return null;
         yield return null;
-        Debug.Log("EnemySpawner: Start point confirmed, starting waves...");
+        // Debug.Log("EnemySpawner: Start point confirmed, starting waves...");
         StartCoroutine(StartWave());
     }
 
@@ -69,7 +69,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        Debug.Log($"EnemySpawner: Spawning enemy at {LevelManager.main.startPoint.position}");
+        // Debug.Log($"EnemySpawner: Spawning enemy at {LevelManager.main.startPoint.position}");
         if (LevelManager.main.startPoint == null)
         {
             Debug.LogError("EnemySpawner: Start point not set! Cannot spawn.");
