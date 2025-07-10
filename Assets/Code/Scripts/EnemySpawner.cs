@@ -22,11 +22,13 @@ public class EnemySpawner : MonoBehaviour
     private int enemiesLeftToSpawn;
     private bool isSpawning = false;
 
-    private void Start()
+    private IEnumerator Start()
     {
-        // Debug.Log("EnemySpawner Start called.");
+        while (LevelManager.main.startPoint == null)
+            yield return null;
+        yield return null;
+        Debug.Log("EnemySpawner: Start point confirmed, starting waves...");
         StartCoroutine(StartWave());
-
     }
 
     private void Awake()
@@ -38,10 +40,10 @@ public class EnemySpawner : MonoBehaviour
     {
         if (!isSpawning)
         {
-            // Debug.Log("Not spawning yet...");
+        // Debug.Log("EnemySpawner: Not spawning yet...");
             return;
         }
-        // Debug.Log("Spawning is active. Enemies left: " + enemiesLeftToSpawn); // This gets spammed to infinity with the current broken code
+        // Debug.Log("EnemySpawner: Spawning is active. Enemies left: " + enemiesLeftToSpawn); // This gets spammed to infinity with the current broken code
         timeSinceLastSpawn += Time.deltaTime; // It makes the Rounds harder by Spawning faster every Round
          if (timeSinceLastSpawn >= (1f / enemiesPerSecond) && enemiesLeftToSpawn > 0)
 
@@ -67,23 +69,27 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (enemyPreFabs.Length == 0 || enemyPreFabs[0] == null)
+        Debug.Log($"EnemySpawner: Spawning enemy at {LevelManager.main.startPoint.position}");
+        if (LevelManager.main.startPoint == null)
         {
-            // Debug.LogError("Kein Enemy Prefab zugewiesen!");
+            Debug.LogError("EnemySpawner: Start point not set! Cannot spawn.");
             return;
         }
 
         GameObject prefabToSpawn = enemyPreFabs[0];
-        Instantiate(prefabToSpawn, LevelManager.main.startPoint.position, Quaternion.identity);
+        Vector3 spawnPosition = LevelManager.main.startPoint.position;
+        spawnPosition.y += 0.5f; // if needed to visually center on cell
+        // Debug.Log($"EnemySpawner: Spawning enemy at {spawnPosition}");
+        Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);;
     }
 
     private IEnumerator StartWave()
     {
-        Debug.Log("Starte neue Welle in " + timeBetweenWaves + " Sekunden..."); // For Debugging
+        // Debug.Log("EnemySpawner: Starting new wave in " + timeBetweenWaves + " seconds..."); // For Debugging
         yield return new WaitForSeconds(timeBetweenWaves);
         isSpawning = true; 
         enemiesLeftToSpawn = EnemiesPerWave();
-        Debug.Log("Welle gestartet! Gegner zu spawnen: " + enemiesLeftToSpawn); // For Debugging
+        // Debug.Log("EnemySpawner: Wave started! Enemies to spawn: " + enemiesLeftToSpawn); // For Debugging
     }
 
 

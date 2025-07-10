@@ -62,7 +62,7 @@ public class MazeSpawner : MonoBehaviour
 
         GeneratePlots();
         GeneratePath();
-
+        Debug.Log("MazeSpawner: Path generated, setting in LevelManager");
         LevelManager.main.SetPath(pathPoints.ToArray(), startPoint, endPoint);
     }
 

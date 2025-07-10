@@ -43,9 +43,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    // 🔥 New: sets the enemy path and start/end points from MazeSpawner
     public void SetPath(Transform[] path, Transform start, Transform end)
     {
+        Debug.Log("LevelManager: Setting path, start, and end points");
         this.path = path;
         this.startPoint = start;
         this.endPoint = end;
