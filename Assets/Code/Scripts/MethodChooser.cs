@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+
 public class MethodChooser : MonoBehaviour
 {
     public void ChooseCommand(string command)
@@ -39,7 +40,7 @@ public class MethodChooser : MonoBehaviour
             {
                 if (parameters.ContainsKey("option") && parameters["option"].Trim() == "play")
                 {
-                    if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0)
+                    if (SceneManager.GetActiveScene().buildIndex == 0)
                     {
                         GameObject menuObj = GameObject.Find("MenuManager");
                         if (menuObj != null)
@@ -49,20 +50,12 @@ public class MethodChooser : MonoBehaviour
                             {
                                 menu.PlayGame();
                             }
-                            else
-                            {
-                                Debug.LogError("MainMenu component not found!");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("MainMenu object not found!");
                         }
                     }
                 }
                 else if (parameters.ContainsKey("option") && parameters["option"].Trim() == "exit")
                 {
-                    if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 0)
+                    if (SceneManager.GetActiveScene().buildIndex == 0)
                     {
                         GameObject menuObj = GameObject.Find("MenuManager");
                         if (menuObj != null)
@@ -72,23 +65,14 @@ public class MethodChooser : MonoBehaviour
                             {
                                 menu.QuitGame();
                             }
-                            else
-                            {
-                                Debug.LogError("MainMenu component not found!");
-                            }
-                        }
-                        else
-                        {
-                            Debug.LogError("MainMenu object not found!");
                         }
                     }
                 }
             }
-
             else if (commandName == "tower_commands")
             {
                 if (parameters.ContainsKey("option") && parameters["option"] == "put"
-                    && parameters.ContainsKey("place") && UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 1)
+                    && parameters.ContainsKey("place") && SceneManager.GetActiveScene().buildIndex == 1)
                 {
                     string placeStr = parameters["place"];
                     if (int.TryParse(placeStr, out int placeNumber))
@@ -96,39 +80,64 @@ public class MethodChooser : MonoBehaviour
                         if (placeNumber >= 0 && placeNumber <= 191)
                         {
                             Debug.Log($"Putting tower at place {placeNumber}");
-                            GameObject _plot;
-                            if (placeNumber == 0)
+                            GameObject _plot = placeNumber == 0
+                                ? GameObject.Find("Plot")
+                                : GameObject.Find($"Plot ({placeStr.Trim()})");
+                            
+                            if (_plot != null)
                             {
-                                _plot = GameObject.Find("Plot");
+                                _plot.GetComponent<Plot>().PutTower();
                             }
                             else
                             {
-                                _plot = GameObject.Find("Plot (" + placeStr.Trim() + ")");
+                                Debug.LogWarning($"Plot ({placeStr.Trim()}) not found!");
                             }
-                            _plot.GetComponent<Plot>().PutTower();
-                            
                         }
                         else
                         {
-                            Debug.LogWarning($"Invalid place number {placeNumber}, must be 1-191.");
+                            Debug.LogWarning($"Invalid place number {placeNumber}, must be 0-191.");
                         }
                     }
-                    else
-                    {
-                        Debug.LogWarning($"Place value '{placeStr}' is not a valid number.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("tower_commands requires option=put and a valid place.");
                 }
             }
+else if (commandName == "turret_select_commands")
+{
+    if (parameters.ContainsKey("option") && parameters.ContainsKey("turret_color")
+        && SceneManager.GetActiveScene().buildIndex == 1)
+    {
+        string color = parameters["turret_color"].Trim();
+        string buttonName = $"Turret{UppercaseFirst(color)}";
+        GameObject targetButtonObj = GameObject.Find(buttonName);
 
+        if (targetButtonObj != null)
+        {
+            var buttonComponent = targetButtonObj.GetComponent<UnityEngine.UI.Button>();
+            if (buttonComponent != null)
+            {
+                buttonComponent.onClick.Invoke();
+                Debug.Log($"Simulated click on '{buttonName}' via voice command");
+            }
+            else
+            {
+                Debug.LogWarning($"Found '{buttonName}', but it has no Unity Button component.");
+            }
         }
-
+        else
+        {
+            Debug.LogWarning($"No turret button named '{buttonName}' found in hierarchy.");
+        }
+    }
+}
+        }
         else
         {
             Debug.Log("Invalid command format.");
         }
+    }
+
+    private string UppercaseFirst(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return s;
+        return char.ToUpper(s[0]) + s.Substring(1);
     }
 }

@@ -4,12 +4,19 @@ using UnityEngine.UI;
 public class TurretButton : MonoBehaviour
 {
     [Header("References")]
-    public Image frameImage; // The background image to highlight
     public GameObject turretPrefab; // The prefab this button selects
 
     [Header("Colors")]
     public Color normalColor = Color.white;
-    public Color selectedColor = Color.yellow;
+    public Color selectedColor = new Color32(0x31, 0x89, 0xFF, 0xFF); // HEX 3189FF
+
+    private Image frameImage;
+
+    private void Awake()
+    {
+        // get the Image component on the parent frame (TurretFrameBlue)
+        frameImage = GetComponentInParent<Image>();
+    }
 
     private void Start()
     {
@@ -17,18 +24,19 @@ public class TurretButton : MonoBehaviour
     }
 
     public void OnClick()
-  {
-      BuildManager.main.SelectTurret(turretPrefab);
-      BuildManager.main.HighlightButton(this);
-  }
+    {
+        BuildManager.main.SelectTurret(turretPrefab);
+    }
 
     public void Select()
     {
-        frameImage.color = selectedColor;
+        if (frameImage != null)
+            frameImage.color = selectedColor;
     }
 
     public void Deselect()
     {
-        frameImage.color = normalColor;
+        if (frameImage != null)
+            frameImage.color = normalColor;
     }
 }

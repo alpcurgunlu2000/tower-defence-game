@@ -671,6 +671,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1480012773}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: HighlightFrame
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 913707403}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &212689737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +815,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1480012773}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: HighlightFrame
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 434095367}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &263487337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -925,10 +949,22 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SelectTurret
+        m_MethodName: HighlightButton
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 6695444884374626269, guid: 0ec0f38d3faf4544dabec999feb3bbb5, type: 3}
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: TurretButton, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1480012773}
+        m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
+        m_MethodName: HighlightFrame
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1449489755}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
@@ -1385,6 +1421,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerPrefabs: []
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.19215687, g: 0.5372549, b: 1, a: 1}
+  redTurretButtonObj: {fileID: 0}
+  greenTurretButtonObj: {fileID: 0}
+  blueTurretButtonObj: {fileID: 0}
 --- !u!1 &705789223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,7 +2288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.38039216}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2938,6 +2979,11 @@ MonoBehaviour:
   - {fileID: 6695444884374626269, guid: 0ec0f38d3faf4544dabec999feb3bbb5, type: 3}
   - {fileID: 6695444884374626269, guid: c1e2c054a5372476b8774da86dc4ce54, type: 3}
   - {fileID: 6695444884374626269, guid: 718cd2c74d9334603b496c2d23a73348, type: 3}
+  normalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  selectedColor: {r: 0.19215687, g: 0.5372549, b: 1, a: 1}
+  redTurretButtonObj: {fileID: 263487334}
+  greenTurretButtonObj: {fileID: 212689734}
+  blueTurretButtonObj: {fileID: 335616310}
 --- !u!1 &1564145024
 GameObject:
   m_ObjectHideFlags: 0

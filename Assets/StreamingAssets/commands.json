@@ -1,26 +1,18 @@
 {
     "commands": {
         "game_commands": {
-            "parameter_names": [
-                "option"
-            ],
-            "options": [
-                "play",
-                "exit"
-            ]
+            "parameter_names": ["option"],
+            "options": ["play", "exit"]
         },
-        "tower_commands":{
-            "parameter_names": [
-                "option",
-                "place"
-            ],
-            "options":[
-                "put"
-            ],
-            "places":[
-                "0 to 191",
-                "note: give it as integer"
-            ]
+        "tower_commands": {
+            "parameter_names": ["option", "place"],
+            "options": ["put"],
+            "places": ["0 to 191", "note: give it as integer"]
+        },
+        "turret_select_commands": {
+            "parameter_names": ["option", "turret_color"],
+            "options": ["select", "switch", "set"],
+            "turret_color": ["red", "green", "blue"]
         }
     }
 }
