@@ -19,11 +19,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void Start()
     {
-        // Ensure path is valid
         if (LevelManager.main.path == null || LevelManager.main.path.Length == 0)
         {
             Debug.LogError("No path found in LevelManager. Make sure MazeSpawner runs first!");
-            enabled = false; // disable this script
+            enabled = false;
             return;
         }
 
@@ -38,7 +37,6 @@ public class EnemyMovement : MonoBehaviour
             pathIndex++;
             if (pathIndex >= LevelManager.main.path.Length)
             {
-                // Enemy reached the end
                 HealthBar.main.EnemyReachedEnd();
                 EnemySpawner.onEnemyDestroy.Invoke();
                 Destroy(gameObject);
@@ -56,7 +54,11 @@ public class EnemyMovement : MonoBehaviour
         if (target != null)
         {
             Vector2 direction = (target.position - transform.position).normalized;
-            rb.linearVelocity = direction * moveSpeed; // corrected from linearVelocity to velocity
+            rb.linearVelocity = direction * moveSpeed;
+
+            // Yeni eklenen yön kodu
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle + 90f);
         }
     }
 }

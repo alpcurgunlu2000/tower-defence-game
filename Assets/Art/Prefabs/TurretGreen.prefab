@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 5240309282147192570}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.003, y: -0.003, z: 0}
+  m_LocalPosition: {x: 0.003, y: 0.4, z: 0}
   m_LocalScale: {x: 0.46721733, y: 0.46638662, z: 2.1085}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: -913482385
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8821382559242813096, guid: 2882a0d4c33ec4702af3ae047228531c, type: 3}
+  m_Sprite: {fileID: -5457111709289692277, guid: 248a5e3f57d04c14788cd953eeaeb95c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -139,7 +139,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8459690520605681498, guid: ab1cfd9a6decfca4db42c61120e78a1d, type: 3}
   firingPoint: {fileID: 5814202476963999457}
   targetingRange: 3
-  bps: 1
+  bps: 2
 --- !u!1 &7087503524714620541
 GameObject:
   m_ObjectHideFlags: 0

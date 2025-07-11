@@ -76,7 +76,8 @@ public class EnemySpawner : MonoBehaviour
             return;
         }
 
-        GameObject prefabToSpawn = enemyPreFabs[0];
+        GameObject prefabToSpawn = enemyPreFabs[Random.Range(0, 3)];
+
         Vector3 spawnPosition = LevelManager.main.startPoint.position;
         spawnPosition.y += 0.5f; // if needed to visually center on cell
         // Debug.Log($"EnemySpawner: Spawning enemy at {spawnPosition}");
