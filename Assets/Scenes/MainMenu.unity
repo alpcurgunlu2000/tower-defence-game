@@ -555,6 +555,8 @@ GameObject:
   - component: {fileID: 209203630}
   - component: {fileID: 209203629}
   - component: {fileID: 209203631}
+  - component: {fileID: 209203633}
+  - component: {fileID: 209203632}
   m_Layer: 0
   m_Name: MethodChooser
   m_TagString: Untagged
@@ -601,6 +603,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aecbe33e98f7340802c5008f63cb61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &209203632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209203628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845052399b4704d8b9d1428c51615789, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretSelectionTimeout: 5
+--- !u!114 &209203633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209203628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69e8c19c829264f3eab6b41ce0aaf9bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDelayTime: 10
 --- !u!1 &222099279
 GameObject:
   m_ObjectHideFlags: 0

@@ -661,7 +661,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SelectTurret
+        m_MethodName: DelayedSelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6695444884374626269, guid: c1e2c054a5372476b8774da86dc4ce54, type: 3}
@@ -673,7 +673,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: HighlightFrame
+        m_MethodName: DelayedHighlightFrame
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 913707403}
@@ -805,7 +805,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SelectTurret
+        m_MethodName: DelayedSelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6695444884374626269, guid: 718cd2c74d9334603b496c2d23a73348, type: 3}
@@ -817,7 +817,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: HighlightFrame
+        m_MethodName: DelayedHighlightFrame
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 434095367}
@@ -949,7 +949,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: SelectTurret
+        m_MethodName: DelayedSelectTurret
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 6695444884374626269, guid: 0ec0f38d3faf4544dabec999feb3bbb5, type: 3}
@@ -961,7 +961,7 @@ MonoBehaviour:
         m_CallState: 1
       - m_Target: {fileID: 1480012773}
         m_TargetAssemblyTypeName: BuildManager, Assembly-CSharp
-        m_MethodName: HighlightFrame
+        m_MethodName: DelayedHighlightFrame
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1449489755}

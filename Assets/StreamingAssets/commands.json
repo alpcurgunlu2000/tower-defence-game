@@ -11,7 +11,7 @@
         },
         "turret_select_commands": {
             "parameter_names": ["option", "turret_color"],
-            "options": ["select", "switch", "set"],
+            "options": ["select", "switch", "set", "give me"],
             "turret_color": ["red", "green", "blue"]
         }
     }

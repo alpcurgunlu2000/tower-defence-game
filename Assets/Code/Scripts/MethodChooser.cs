@@ -14,6 +14,8 @@ public class MethodChooser : MonoBehaviour
 
         Debug.Log($"ChooseCommand called with: {command}");
 
+
+
         if (command.StartsWith("--COMMAND--"))
         {
             string data = command.Substring(11);
@@ -114,8 +116,10 @@ else if (commandName == "turret_select_commands")
             var buttonComponent = targetButtonObj.GetComponent<UnityEngine.UI.Button>();
             if (buttonComponent != null)
             {
+                MouseActionDelayer.Instance.SetCurrentActionSpeech(true);
                 buttonComponent.onClick.Invoke();
                 Debug.Log($"Simulated click on '{buttonName}' via voice command");
+                MouseActionDelayer.Instance.SetCurrentActionSpeech(false);
             }
             else
             {

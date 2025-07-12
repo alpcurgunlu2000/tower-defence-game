@@ -25,7 +25,21 @@ public class TurretButton : MonoBehaviour
 
     public void OnClick()
     {
-        BuildManager.main.SelectTurret(turretPrefab);
+        // Create the turret selection action
+        var turretAction = new DelayedMouseAction(() => {
+            BuildManager.main.SelectTurret(turretPrefab);
+        }, $"Select turret: {turretPrefab.name}", "turret_select_commands");
+        
+        // Delay or execute the action
+        if (MouseActionDelayer.Instance != null)
+        {
+            MouseActionDelayer.Instance.DelayMouseAction(turretAction, "turret_select_commands");
+        }
+        else
+        {
+            // Fallback if delayer is not available
+            turretAction.Execute();
+        }
     }
 
     public void Select()

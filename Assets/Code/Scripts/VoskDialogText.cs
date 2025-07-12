@@ -23,89 +23,28 @@ public class VoskDialogText : MonoBehaviour
 	Regex forward_regex = new Regex("переедем");
 	Regex back_regex = new Regex("(назад|вернёмся назад)");
 
-	// State
-	bool goat_left;
-	bool wolf_left;
-	bool cabbage_left;
-	bool man_left;
-
 	void Awake()
 	{
 		VoskSpeechToText.OnTranscriptionResult += OnTranscriptionResult;
-		ResetState();
-	}
-
-	void ResetState()
-	{
-		goat_left = true;
-		wolf_left = true;
-		cabbage_left = true;
-		man_left = true;
-	}
-
-	void CheckState()
-	{
-		if (goat_left && wolf_left && !man_left)
-		{
-			AddFinalResponse("волк съел козу, начинай сначала");
-			return;
-		}
-		if (goat_left && cabbage_left && !man_left)
-		{
-			AddFinalResponse("коза съела капусту, начинай сначала");
-			return;
-		}
-		if (!goat_left && !wolf_left && man_left)
-		{
-			AddFinalResponse("волк съел козу, начинай сначала");
-			return;
-		}
-		if (!goat_left && !cabbage_left && man_left)
-		{
-			AddFinalResponse("коза съела капусту, начинай сначала");
-			return;
-		}
-		if (!goat_left && !wolf_left && !cabbage_left && !man_left)
-		{
-			AddFinalResponse("отлично получилось, давай ещё раз!");
-			return;
-		}
-
-		AddResponse("так, и что дальше");
-	}
-
-	void Say(string response)
-	{
-		// System.Diagnostics.Process.Start("/usr/bin/say", response); 
-	}
-
-	void AddFinalResponse(string response)
-	{
-		Say(response);
-		DialogText.text = response + "\n";
-		ResetState();
-	}
-
-	void AddResponse(string response)
-	{
-		Say(response);
-		DialogText.text = response + "\n\n";
-
-		DialogText.text += "крестьянин " + (man_left ? "слева" : "справа") + "\n";
-		DialogText.text += "волк " + (wolf_left ? "слева" : "справа") + "\n";
-		DialogText.text += "коза " + (goat_left ? "слева" : "справа") + "\n";
-		DialogText.text += "капуста " + (cabbage_left ? "слева" : "справа") + "\n";
-
-		DialogText.text += "\n";
 	}
 
 	public GeminiCommandProcessor geminiProcessor;
 
 public MethodChooser methodChooser;
 
+/* 
+	select a turret (modality fission)
+	- 1. speech: give me red tower here (turret selection command) -> 2.5 seconds
+        - record the speech (raw speech) -> 1-2 seconds till user completes its speech (user interaction)
+        - process the speech() -> get the command type on this process. async function (background thread / no user interaction / async)
+    - 2. mouse-click: click blue tower -> it should ignore this click
+
+	if the speech is false alarm may be noise
+	- 1. speech: sound is falsy may be noise
+	- 2. mouse-click: click blue tower -> it should trigger the command
+*/
 private async void OnTranscriptionResult(string obj)
 {
-    Debug.Log("Recognized JSON: " + obj);
     var result = new RecognitionResult(obj);
 
     if (result.Phrases.Length == 0 || string.IsNullOrWhiteSpace(result.Phrases[0].Text))
@@ -134,9 +73,14 @@ private async void OnTranscriptionResult(string obj)
     {
         Debug.LogError("MethodChooser not assigned in inspector!");
     }
-
     if (DialogText != null)
         DialogText.text = $"Sentence: {recognizedText}\nCommand: {commandOutput}";
+
+    // Complete speech processing with the command result
+    if (MouseActionDelayer.Instance != null)
+    {
+        MouseActionDelayer.Instance.CompleteSpeechProcessing(commandOutput);
+    }
 }
 
 }

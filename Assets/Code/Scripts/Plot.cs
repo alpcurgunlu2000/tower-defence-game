@@ -29,36 +29,49 @@ public class Plot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IP
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Mouse enters " + name);
         sr.color = hoverColor; // Hover Color
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        Debug.Log("Mouse leaves " + name);
         sr.color = startColor; // Hover Color
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         if (tower != null) return;
-        Debug.Log("Build Tower here: " + name);
-
-        // Check if player has enough coins
-        bool canBuild = FindObjectOfType<CoinManager>().SpendCoins(towerCost);
-        if (canBuild)
+        
+        // Create the tower building action
+        var towerAction = new DelayedMouseAction(() => {
+            Debug.Log("Build Tower here: " + name);
+            
+            // Check if player has enough coins
+            bool canBuild = FindObjectOfType<CoinManager>().SpendCoins(towerCost);
+            if (canBuild)
+            {
+                GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+                Instantiate(towerToBuild, transform.position, Quaternion.identity);
+                /*
+                GameObject towerToBuild = BuildManager.main.GetSelectedTower();
+                Instantiate(towerToBuild, transform.position, Quaternion.identity);
+                tower = towerToBuild;
+                */
+            }
+            else
+            {
+                Debug.Log("Not enough coins to build tower!");
+            }
+        }, $"Build tower at {name}", "tower_commands");
+        
+        // Delay or execute the action
+        if (MouseActionDelayer.Instance != null)
         {
-            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-            Instantiate(towerToBuild, transform.position, Quaternion.identity);
-            /*
-            GameObject towerToBuild = BuildManager.main.GetSelectedTower();
-            Instantiate(towerToBuild, transform.position, Quaternion.identity);
-            tower = towerToBuild;
-            */
+            MouseActionDelayer.Instance.DelayMouseAction(towerAction, "tower_commands");
         }
         else
         {
-            Debug.Log("Not enough coins to build tower!");
+            // Fallback if delayer is not available
+            towerAction.Execute();
         }
     }
 

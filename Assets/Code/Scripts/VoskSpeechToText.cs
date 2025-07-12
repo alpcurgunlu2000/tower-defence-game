@@ -152,6 +152,11 @@ public class VoskSpeechToText : MonoBehaviour
 	}
 
 	private bool isHoldingSpace = false;
+	private float startTime;
+	private float endTime;
+	private float recordingDuration;
+	private float processingStartTime;
+	private bool isProcessing = false;
 
 	void Update()
 	{
@@ -160,18 +165,34 @@ public class VoskSpeechToText : MonoBehaviour
 			if (Keyboard.current.spaceKey.wasPressedThisFrame)
 			{
 				isHoldingSpace = true;
+				startTime = Time.time;
 				StartListening();
 			}
 			else if (Keyboard.current.spaceKey.wasReleasedThisFrame)
 			{
 				isHoldingSpace = false;
+				endTime = Time.time;
+				recordingDuration = endTime - startTime;
+				Debug.Log($"Recording duration: {recordingDuration:F2} seconds");
+				processingStartTime = Time.time;
+				isProcessing = true;
 				StopListening();
 			}
 		}
 
 		// tanıma sonuçlarını çek
 		if (_threadedResultQueue.TryDequeue(out string voiceResult))
+		{
 			OnTranscriptionResult?.Invoke(voiceResult);
+			if (isProcessing)
+			{
+				float totalProcessingTime = Time.time - processingStartTime;
+				float totalActionTime = Time.time - startTime;
+				Debug.Log($"Total processing time: {totalProcessingTime:F2} seconds");
+				Debug.Log($"Total action time (recording + processing): {totalActionTime:F2} seconds");
+				isProcessing = false;
+			}
+		}
 	}
 
 	public void StartListening()
@@ -181,6 +202,12 @@ public class VoskSpeechToText : MonoBehaviour
 		_running = true;
 		VoiceProcessor.StartRecording();
 		Task.Run(() => ThreadedWork());
+		
+		// Start speech processing for delayed actions
+		if (MouseActionDelayer.Instance != null)
+		{
+			MouseActionDelayer.Instance.StartSpeechProcessing();
+		}
 	}
 
 	public void StopListening()

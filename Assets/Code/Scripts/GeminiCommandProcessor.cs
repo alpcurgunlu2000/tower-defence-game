@@ -31,6 +31,7 @@ public class GeminiCommandProcessor : MonoBehaviour
 
     public async Task<string> GetCommand(string sentence)
     {
+        // log sentence
         using (var client = new HttpClient())
         {
             var payload = new
@@ -70,8 +71,8 @@ public class GeminiCommandProcessor : MonoBehaviour
                 string result = await response.Content.ReadAsStringAsync();
                 if (response.IsSuccessStatusCode)
                 {
-                    Debug.Log("Gemini response: " + result);
                     string command = ExtractCommand(result);
+                    Debug.Log("Extracted command: " + command);
                     return command;
                 }
                 else

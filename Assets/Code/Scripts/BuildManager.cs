@@ -36,6 +36,46 @@ public class BuildManager : MonoBehaviour
         Debug.Log($"Selected turret: {selectedTurretPrefab.name}");
     }
 
+    public void DelayedSelectTurret(GameObject turretPrefab){
+        if (MouseActionDelayer.Instance.isCurrentActionSpeech){
+            Debug.Log($"DelayedSelectTurret: Current action is speech, executing immediately");
+            SelectTurret(turretPrefab);
+            return;
+        }
+        Debug.Log($"DelayedSelectTurret: {turretPrefab.name}");
+        var turretAction = new DelayedMouseAction(() => {
+            SelectTurret(turretPrefab);
+        }, $"Select turret: {turretPrefab.name}", "turret_select_commands");
+        
+        if (MouseActionDelayer.Instance != null)
+        {
+            Debug.Log($"DelayedSelectTurret: Delaying turret selection for {turretPrefab.name}");
+            MouseActionDelayer.Instance.DelayMouseAction(turretAction, "turret_select_commands");
+        } else {
+            Debug.Log($"DelayedSelectTurret: No delayer instance found, executing immediately");
+            turretAction.Execute();
+        }
+    }
+
+    public void DelayedHighlightFrame(GameObject frameObject){
+        if (MouseActionDelayer.Instance.isCurrentActionSpeech){
+            Debug.Log($"HighlightFrame: Current action is speech, executing immediately");
+            HighlightFrame(frameObject);
+            return;
+        }
+        var frameAction = new DelayedMouseAction(() => {
+            HighlightFrame(frameObject);
+        }, $"Highlight frame: {frameObject.name}", "turret_select_commands");
+        
+        if (MouseActionDelayer.Instance != null)
+        {
+            MouseActionDelayer.Instance.DelayMouseAction(frameAction, "turret_select_commands");
+        } else {
+            Debug.Log($"DelayedHighlightFrame: No delayer instance found, executing immediately");
+            frameAction.Execute();
+        }
+    }
+    
     public void HighlightFrame(GameObject frameObject)
     {
         if (activeFrame != null && activeFrame != frameObject)
